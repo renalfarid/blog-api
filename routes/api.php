@@ -22,6 +22,7 @@ Route::group(['prefix' => 'auth'], function () {
 Route::group(['prefix' => 'user'], function () {
     Route::group(['middleware' => 'auth:sanctum'], function() {
         Route::get('/', [UsersController::class, 'getUserDetails']);
+        Route::get('/posts', [PostsController::class, 'getUserPost']);
     });
 }); 
 
