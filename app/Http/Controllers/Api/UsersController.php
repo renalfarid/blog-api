@@ -20,8 +20,4 @@ class UsersController extends Controller {
         return $this->UserInterface->getCurrentUser();
     }
 
-    /*public function addUserDetails(Request $request) 
-    {
-        return $this->UserRepositoryInterface->addUserDetails($request);
-    }*/
 }

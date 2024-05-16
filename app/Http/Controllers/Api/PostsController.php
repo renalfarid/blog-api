@@ -33,9 +33,4 @@ class PostsController extends Controller {
     {
         return $this->PostsInterface->deletePost($id, $request);
     }
-
-    /*public function addUserDetails(Request $request) 
-    {
-        return $this->UserRepositoryInterface->addUserDetails($request);
-    }*/
 }

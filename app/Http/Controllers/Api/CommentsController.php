@@ -20,10 +20,4 @@ class CommentsController extends Controller {
     public function createPostComment($id, Request $request) {
         return $this->CommentsInterface->createPostComment($id, $request);
     }
-
-
-    /*public function addUserDetails(Request $request) 
-    {
-        return $this->UserRepositoryInterface->addUserDetails($request);
-    }*/
 }

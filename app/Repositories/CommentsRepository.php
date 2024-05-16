@@ -4,7 +4,6 @@ namespace App\Repositories;
 use App\Interfaces\CommentsInterface;
 use App\Lib\Helper;
 use App\Models\Comment;
-use App\Models\User;
 use App\Trait\ResponseApiTrait;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;

@@ -7,6 +7,7 @@ use App\Models\Post;
 use App\Trait\ResponseApiTrait;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
 
@@ -67,7 +68,8 @@ class PostsRepository implements PostsInterface {
       $post = Post::createPost($title, $slug, $content, $user_id, $status, $published_date);  
       return $this->success('New post created', $post, 200);
     } catch (\Exception $e) {
-      $error = $e->getMessage();
+      Log::error($e->getMessage());
+      $error = "Failed create new post";
       return $this->error($error);
     }
 
