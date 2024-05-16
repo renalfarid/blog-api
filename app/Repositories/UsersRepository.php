@@ -5,7 +5,7 @@ use App\Interfaces\UsersInterface;
 use App\Models\User;
 use App\Trait\ResponseApiTrait;
 
-class Usersrepository implements UsersInterface {
+class UsersRepository implements UsersInterface {
   use ResponseApiTrait;
 
   public function getUsers() {

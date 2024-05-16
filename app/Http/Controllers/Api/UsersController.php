@@ -3,22 +3,21 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Interfaces\UsersInterface;
-use Illuminate\Http\Request;
 
 class UsersController extends Controller {
-    protected $UserRepositoryInterface;
+    protected $UserInterface;
 
     public function __construct(UsersInterface $userRepositoryInterface)
     {
-        $this->UserRepositoryInterface = $userRepositoryInterface;
+        $this->UserInterface = $userRepositoryInterface;
     }
 
     public function getUsers() {
-        return $this->UserRepositoryInterface->getUsers();
+        return $this->UserInterface->getUsers();
     }
 
     public function getUserDetails() {
-        return $this->UserRepositoryInterface->getCurrentUser();
+        return $this->UserInterface->getCurrentUser();
     }
 
     /*public function addUserDetails(Request $request) 
