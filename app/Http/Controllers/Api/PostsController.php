@@ -3,6 +3,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Interfaces\PostsInterface;
+use Illuminate\Http\Request;
 
 class PostsController extends Controller {
     protected $PostsInterface;
@@ -18,6 +19,10 @@ class PostsController extends Controller {
 
     public function getUserPost() {
         return $this->PostsInterface->getUserPost();
+    }
+
+    public function createUserPost(Request $request) {
+        return $this->PostsInterface->createPost($request);
     }
 
     /*public function addUserDetails(Request $request) 

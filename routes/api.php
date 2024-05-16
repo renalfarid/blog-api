@@ -23,6 +23,7 @@ Route::group(['prefix' => 'user'], function () {
     Route::group(['middleware' => 'auth:sanctum'], function() {
         Route::get('/', [UsersController::class, 'getUserDetails']);
         Route::get('/posts', [PostsController::class, 'getUserPost']);
+        Route::post('/posts', [PostsController::class, 'createUserPost']);
     });
 }); 
 
