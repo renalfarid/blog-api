@@ -53,7 +53,7 @@ class PostsRepository implements PostsInterface {
     $validated = $validator->validated();
     $title = $validated['title'];
     $content = $validated['content'];
-    $status = $validated['status'];
+    $status = str::lower($validated['status']);
     $published_date = null;
     if ($status == 'published') {
       $published_date = Carbon::now();
