@@ -27,7 +27,8 @@ class RepositoryServiceProvider extends ServiceProvider
         $interfaces = [
             'Auth',
             'Users',
-            'Posts'
+            'Posts',
+            'Comments',
         ];
         if (count($interfaces)) {
             foreach ($interfaces as $key => $interface) {

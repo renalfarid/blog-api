@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\AuthController;
+use App\Http\Controllers\Api\CommentsController;
 use App\Http\Controllers\Api\PostsController;
 use App\Http\Controllers\Api\UsersController;
 
@@ -26,6 +27,8 @@ Route::group(['prefix' => 'user'], function () {
         Route::put('/posts/{id}', [PostsController::class, 'updateUserPost']);
         Route::post('/posts', [PostsController::class, 'createUserPost']);
         Route::delete('/posts/{id}', [PostsController::class, 'deleteUserPost']);
+
+        Route::get('/comments', [CommentsController::class, 'getUserComments']);
     });
 }); 
 
