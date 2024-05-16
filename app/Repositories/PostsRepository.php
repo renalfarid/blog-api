@@ -5,6 +5,7 @@ use App\Interfaces\PostsInterface;
 use App\Lib\Helper;
 use App\Models\Post;
 use App\Trait\ResponseApiTrait;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator as FacadesValidator;
 use Illuminate\Support\Str;
@@ -41,6 +42,7 @@ class PostsRepository implements PostsInterface {
     $validator = FacadesValidator::make($request->all(), [
       'title' => 'required',
       'content' => 'required',
+      'status' => 'required',
     ]);
 
     if ($validator->fails()) {
@@ -51,11 +53,18 @@ class PostsRepository implements PostsInterface {
     $validated = $validator->validated();
     $title = $validated['title'];
     $content = $validated['content'];
+    $status = $validated['status'];
+    $published_date = null;
+    if ($status == 'published') {
+      $published_date = Carbon::now();
+    } else {
+      $published_date = null;
+    }
     $slug = Str::slug($title, '_');
     $user_id = Helper::getCurrentId();
 
     try {
-      $post = Post::createPost($title, $slug, $content, $user_id);  
+      $post = Post::createPost($title, $slug, $content, $user_id, $status, $published_date);  
       return $this->success('New post created', $post, 200);
     } catch (\Exception $e) {
       $error = $e->getMessage();

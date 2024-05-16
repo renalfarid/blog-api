@@ -18,6 +18,8 @@ class Post extends Model
       'content',
       'slug',
       'author_id',
+      'status',
+      'published_date',
   ];
 
     public function scopeAllPost() 
@@ -38,10 +40,14 @@ class Post extends Model
       return $posts;
     }
 
-    public function scopeCreatePost($query, $title, $slug, $content, $userId) 
+    public function scopeCreatePost($query, $title, $slug, $content, $userId, $status, $published_date) 
     {
       $posts = $query->updateOrCreate(
-         ['title' => $title, 'slug' => $slug, 'content' => $content, 'author_id' => $userId]
+         [
+           'title' => $title, 'slug' => $slug, 
+           'content' => $content, 'author_id' => $userId, 
+           'status' => $status,'published_date' => $published_date
+          ]
       );
       return $posts;
     }
