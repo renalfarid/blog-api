@@ -2,7 +2,7 @@
 namespace App\Repositories;
 
 use App\Interfaces\PostsInterface;
-use App\Models\User;
+use App\Models\Post;
 use App\Trait\ResponseApiTrait;
 
 class PostsRepository implements PostsInterface {
@@ -10,7 +10,8 @@ class PostsRepository implements PostsInterface {
 
   public function getPosts()
   {
-    //
+    $posts = Post::allPost();
+    return $this->success("All post", $posts, 200);
   } 
 
   public function getPostById()

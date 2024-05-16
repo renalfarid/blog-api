@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\AuthController;
+use App\Http\Controllers\Api\PostsController;
 use App\Http\Controllers\Api\UsersController;
 
 Route::get('/', function (){
@@ -22,4 +23,8 @@ Route::group(['prefix' => 'user'], function () {
     Route::group(['middleware' => 'auth:sanctum'], function() {
         Route::get('/', [UsersController::class, 'getUserDetails']);
     });
+}); 
+
+Route::group(['prefix' => 'posts'], function () {
+    Route::get('/', [PostsController::class, 'getPosts']);
 }); 
