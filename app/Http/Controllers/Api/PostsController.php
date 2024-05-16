@@ -16,8 +16,8 @@ class PostsController extends Controller {
         return $this->PostsInterface->getPosts();
     }
 
-    public function getPostById() {
-        return $this->PostsInterface->getPostById();
+    public function getUserPost() {
+        return $this->PostsInterface->getUserPost();
     }
 
     /*public function addUserDetails(Request $request) 

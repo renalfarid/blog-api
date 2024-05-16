@@ -11,12 +11,12 @@ interface PostsInterface
      */
     public function getPosts();
 
-     /**
+    /**
      * Get Users
      * 
-     * @method  Get api/posts/:id
+     * @method  Get api/user/post
      * @access  private
      */
-    public function getPostById();
+    public function getUserPost();
 
 }
