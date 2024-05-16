@@ -4,6 +4,9 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\UsersController;
 
+Route::get('/', function (){
+   return response()->json(["message" => "welcome API"]);
+});
 /*Route::get('/user', function (Request $request) {
     return $request->user();
 })->middleware('auth:sanctum');*/
@@ -19,7 +22,6 @@ Route::group(['prefix' => 'auth'], function () {
 
 Route::group(['prefix' => 'user'], function () {
     Route::group(['middleware' => 'auth:sanctum'], function() {
-        Route::get('/user-details', [UsersController::class, 'getUserDetails']);
-        Route::post('/user-details', [UsersController::class, 'addUserDetails']);
+       //
     });
 }); 

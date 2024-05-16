@@ -53,7 +53,7 @@ class User extends Authenticatable
     }
 
     public function scopeAddUser() {
-        $query = "INSERT INTO users (name, email, password, salt) VALUES (? , ?, ?, ?)";
+        $query = "INSERT INTO users (name, email, password) VALUES (? , ?, ?, ?)";
         return $query;
     }
 
@@ -61,11 +61,7 @@ class User extends Authenticatable
         return $query->where('id', $id);
     }
 
-    public function scopeGetSalt() {
-        $query = "SELECT salt from users WHERE id = ?";
-        return $query;
-    }
-
+   
     public function scopeGetLastUser() {
         $query = "SELECT name, email FROM users ORDER BY id DESC LIMIT 1";
         return $query;

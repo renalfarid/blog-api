@@ -2,7 +2,6 @@
 namespace App\Repositories;
 
 use App\Interfaces\AuthInterface;
-use App\Lib\Helper;
 use App\Models\User;
 use App\Trait\ResponseApiTrait;
 use Illuminate\Http\Request;
@@ -13,18 +12,8 @@ use Illuminate\Support\Facades\Validator;
 class AuthRepository implements AuthInterface {
   use ResponseApiTrait;
 
-  protected function generateSalt($len = 8) {
-    $chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789`~!@#$%^&*()-=_+';
-	$l = strlen($chars) - 1;
-	$str = '';
-	for ($i = 0; $i < $len; ++$i) {
-		$str .= $chars[rand(0, $l)];
- 	}
-	return $str;
-  }
-
+  
   public function signup(Request $request) {
-    $salt = $this->generateSalt();
     $validator = Validator::make($request->all(), [
         'name' => 'required',
         'email' => 'required',
@@ -41,7 +30,7 @@ class AuthRepository implements AuthInterface {
    
     try {
       $query_add_user = User::addUser();
-      $users = DB::select($query_add_user, [$name, $email, $password, $salt]);
+      $users = DB::select($query_add_user, [$name, $email, $password]);
       
       $query_last_user = User::getLastUser();
       $users = DB::select($query_last_user);
@@ -54,8 +43,7 @@ class AuthRepository implements AuthInterface {
     $users = DB::table('users')->insert([
       'name' => $name,
       'email' => $email,
-      'password' => $password,
-      'salt' => $salt
+      'password' => $password
     ]);
    return $this->success("user created !", $users);
 
