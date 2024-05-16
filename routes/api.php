@@ -30,6 +30,7 @@ Route::group(['prefix' => 'user'], function () {
 
         Route::get('/comments', [CommentsController::class, 'getUserComments']);
         Route::post('/comments/{id}', [CommentsController::class, 'createPostComment']);
+        Route::get('/comments/{id}', [CommentsController::class, 'getPostComment']);
     });
 }); 
 

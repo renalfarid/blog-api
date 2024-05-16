@@ -21,4 +21,12 @@ interface CommentsInterface
      * @access  private
      */
     public function createPostComment($id, Request $request);
+
+    /**
+     * Get Post Comment
+     * 
+     * @method  Get api/user/comments/post_id
+     * @access  private
+     */
+    public function getPostComment($id, Request $request);
 }

@@ -20,4 +20,8 @@ class CommentsController extends Controller {
     public function createPostComment($id, Request $request) {
         return $this->CommentsInterface->createPostComment($id, $request);
     }
+
+    public function getPostComment($id, Request $request) {
+        return $this->CommentsInterface->getPostComment($id, $request);
+    }
 }

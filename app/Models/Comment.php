@@ -25,7 +25,7 @@ class Comment extends Model
       return $comments;
     }
 
-    public function scopePostComment($query, $content, $author, $post_id)
+    public function scopeCreatePostComment($query, $content, $author, $post_id)
     {
        $comment = $query->create([
          'content' => $content, 
@@ -33,5 +33,11 @@ class Comment extends Model
          'post_id' => $post_id
        ]);
        return $comment;
+    }
+
+    public function scopeGetPostComment($query, $post_id)
+    {
+      $comment = $query->where('post_id', $post_id)->get();
+      return $comment;
     }
 }

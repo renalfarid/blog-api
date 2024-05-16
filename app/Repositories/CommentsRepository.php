@@ -36,7 +36,7 @@ class CommentsRepository implements CommentsInterface {
     $user_id = Helper::getCurrentId();
 
     try {
-      $comment = Comment::postComment($content, $user_id, $post_id);
+      $comment = Comment::createPostComment($content, $user_id, $post_id);
 
       return $this->success("comment added", $comment, 200);
     } catch (\Exception $e) {
@@ -45,6 +45,11 @@ class CommentsRepository implements CommentsInterface {
       return $this->error($error, 500);
     }
 
-    
+  }
+
+  public function getPostComment($id, Request $request)
+  {
+    $comment = Comment::getPostComment($id);
+    return $this->success("post comment", $comment, 200);
   }
 }
