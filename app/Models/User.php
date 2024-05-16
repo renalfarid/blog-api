@@ -53,7 +53,7 @@ class User extends Authenticatable
     }
 
     public function scopeAddUser() {
-        $query = "INSERT INTO users (name, email, password) VALUES (? , ?, ?, ?)";
+        $query = "INSERT INTO users (name, email, password, role) VALUES (? , ?, ?, ?)";
         return $query;
     }
 

@@ -21,14 +21,14 @@ trait ResponseApiTrait
         if($isSuccess) {
             return response()->json([
                 'message' => $message,
-                'error' => false,
+                'success' => true,
                 'code' => $statusCode,
                 'results' => $data
             ], $statusCode);
         } else {
             return response()->json([
                 'message' => $message,
-                'error' => true,
+                'success' => false,
                 'code' => $statusCode,
             ], $statusCode);
         }

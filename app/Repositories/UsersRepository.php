@@ -1,13 +1,9 @@
 <?php
 namespace App\Repositories;
 
-use App\Http\Resources\Resource\UserResource;
 use App\Interfaces\UsersInterface;
-use App\Lib\Helper;
 use App\Models\User;
-use App\Models\UserDetails;
 use App\Trait\ResponseApiTrait;
-use Illuminate\Http\Request;
 
 class Usersrepository implements UsersInterface {
   use ResponseApiTrait;
@@ -15,9 +11,13 @@ class Usersrepository implements UsersInterface {
   public function getUsers() {
     $users = User::all();
 
-    //$user_collection = new UserResource($users);
-
     return $this->success("Users data", $users);
+  }
+
+  public function getCurrentUser()
+  {
+    $user =  auth('sanctum')->user();
+    return $this->success("Current user", $user);
   }
 
 }

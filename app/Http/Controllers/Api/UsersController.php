@@ -17,12 +17,12 @@ class UsersController extends Controller {
         return $this->UserRepositoryInterface->getUsers();
     }
 
-    public function getUserDetails(Request $request) {
-        return $this->UserRepositoryInterface->getUserDetails($request);
+    public function getUserDetails() {
+        return $this->UserRepositoryInterface->getCurrentUser();
     }
 
-    public function addUserDetails(Request $request) 
+    /*public function addUserDetails(Request $request) 
     {
         return $this->UserRepositoryInterface->addUserDetails($request);
-    }
+    }*/
 }

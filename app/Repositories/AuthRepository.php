@@ -18,19 +18,22 @@ class AuthRepository implements AuthInterface {
         'name' => 'required',
         'email' => 'required',
         'password' => 'required',
+        'role' => 'required',
     ]);
-    
+
     if ($validator->fails()) {
-        return $this->error("check your input !");
+       $error = $validator->errors()->first();
+        return $this->error($error);
     }
     $validated = $validator->validated();
     $name = $validated['name'];
     $email = $validated['email'];
     $password = Hash::make($validated['password'], ['round' => 12]);
+    $role = $validated['role'];
    
     try {
       $query_add_user = User::addUser();
-      $users = DB::select($query_add_user, [$name, $email, $password]);
+      $users = DB::select($query_add_user, [$name, $email, $password, $role]);
       
       $query_last_user = User::getLastUser();
       $users = DB::select($query_last_user);

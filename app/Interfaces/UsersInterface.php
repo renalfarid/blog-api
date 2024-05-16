@@ -1,9 +1,6 @@
 <?php
 
 namespace App\Interfaces;
-
-use Illuminate\Http\Request;
-
 interface UsersInterface
 {
      /**
@@ -13,5 +10,13 @@ interface UsersInterface
      * @access  private
      */
     public function getUsers();
+
+     /**
+     * Get Users
+     * 
+     * @method  Get api/user
+     * @access  private
+     */
+    public function getCurrentUser();
 
 }

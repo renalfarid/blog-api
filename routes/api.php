@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\AuthController;
+use App\Http\Controllers\Api\UsersController;
 
 Route::get('/', function (){
    return response()->json(["message" => "welcome API"]);
@@ -19,6 +20,6 @@ Route::group(['prefix' => 'auth'], function () {
 
 Route::group(['prefix' => 'user'], function () {
     Route::group(['middleware' => 'auth:sanctum'], function() {
-       //
+        Route::get('/', [UsersController::class, 'getUserDetails']);
     });
 }); 
