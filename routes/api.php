@@ -23,7 +23,9 @@ Route::group(['prefix' => 'user'], function () {
     Route::group(['middleware' => 'auth:sanctum'], function() {
         Route::get('/', [UsersController::class, 'getUserDetails']);
         Route::get('/posts', [PostsController::class, 'getUserPost']);
+        Route::put('/posts/{id}', [PostsController::class, 'updateUserPost']);
         Route::post('/posts', [PostsController::class, 'createUserPost']);
+        Route::delete('/posts/{id}', [PostsController::class, 'deleteUserPost']);
     });
 }); 
 

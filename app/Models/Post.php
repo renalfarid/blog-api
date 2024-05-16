@@ -4,10 +4,14 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
 
 class Post extends Model
 {
-    use HasFactory;
+    use HasFactory, SoftDeletes;
     /**
      * The attributes that are mass assignable.
      *
@@ -20,7 +24,7 @@ class Post extends Model
       'author_id',
       'status',
       'published_date',
-  ];
+  ]; 
 
     public function scopeAllPost() 
     {
@@ -50,6 +54,27 @@ class Post extends Model
           ]
       );
       return $posts;
+    }
+
+    public function scopeUpdatePost($query, $title, $slug, $content, $userId, $status, $published_date) 
+    {
+      $posts = $query->update(
+         [
+           'title' => $title, 'slug' => $slug, 
+           'content' => $content, 'author_id' => $userId, 
+           'status' => $status,'published_date' => $published_date
+          ]
+      );
+      return $posts;
+    }
+
+    public function scopeFindPost($query, $id)
+    {
+      $post = $query->find($id);
+      if (!$post) {
+        return [];
+      }
+      return $post;
     }
 
 }

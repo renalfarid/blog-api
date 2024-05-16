@@ -25,6 +25,15 @@ class PostsController extends Controller {
         return $this->PostsInterface->createPost($request);
     }
 
+    public function updateUserPost($id, Request $request) {
+        return $this->PostsInterface->updatePost($id, $request);
+    }
+
+    public function deleteUserPost($id, Request $request) 
+    {
+        return $this->PostsInterface->deletePost($id, $request);
+    }
+
     /*public function addUserDetails(Request $request) 
     {
         return $this->UserRepositoryInterface->addUserDetails($request);

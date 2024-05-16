@@ -73,4 +73,27 @@ class PostsRepository implements PostsInterface {
 
   }
 
+  public function updatePost($id, Request $request)
+  {
+    $post_id = intval($id);
+    $post = Post::findPost($post_id);
+    if (!$post) {
+      return $this->error("post not found", 404);
+    }
+    $post->update($request->all());
+    return $this->success("post updated", [], 200);
+  }
+
+  public function deletePost($id, Request $request)
+  {
+    $post_id = intval($id);
+    $post = Post::findPost($post_id);
+    if (!$post) {
+      return $this->error("post not found", 404);
+    }
+
+    $post->delete();
+    return $this->success("post deleted", [], 200);
+  }
+
 }

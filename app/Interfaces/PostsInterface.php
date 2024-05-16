@@ -30,4 +30,20 @@ interface PostsInterface
      */
     public function createPost(Request $request);
 
+     /**
+     * Update user post
+     * 
+     * @method  PUT api/posts
+     * @access  private
+     */
+    public function updatePost($id, Request $request);
+
+    /**
+     * Delete user post
+     * 
+     * @method  DELETE api/posts
+     * @access  private
+     */
+    public function deletePost($id, Request $request);
+
 }
