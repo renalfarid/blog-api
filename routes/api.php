@@ -29,6 +29,7 @@ Route::group(['prefix' => 'user'], function () {
         Route::delete('/posts/{id}', [PostsController::class, 'deleteUserPost']);
 
         Route::get('/comments', [CommentsController::class, 'getUserComments']);
+        Route::post('/comments/{id}', [CommentsController::class, 'createPostComment']);
     });
 }); 
 

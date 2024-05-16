@@ -24,7 +24,7 @@ class Post extends Model
       'author_id',
       'status',
       'published_date',
-  ]; 
+   ]; 
 
     public function scopeAllPost() 
     {

@@ -3,6 +3,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Interfaces\CommentsInterface;
+use Illuminate\Http\Request;
 
 class CommentsController extends Controller {
     protected $CommentsInterface;
@@ -14,6 +15,10 @@ class CommentsController extends Controller {
 
     public function getUserComments() {
         return $this->CommentsInterface->getUserComments();
+    }
+
+    public function createPostComment($id, Request $request) {
+        return $this->CommentsInterface->createPostComment($id, $request);
     }
 
 

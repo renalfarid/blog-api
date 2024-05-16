@@ -7,7 +7,7 @@ use App\Models\Post;
 use App\Trait\ResponseApiTrait;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Validator as FacadesValidator;
+use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
 
 class PostsRepository implements PostsInterface {
@@ -39,7 +39,7 @@ class PostsRepository implements PostsInterface {
 
   public function createPost(Request $request)
   {
-    $validator = FacadesValidator::make($request->all(), [
+    $validator = Validator::make($request->all(), [
       'title' => 'required',
       'content' => 'required',
       'status' => 'required',
@@ -47,7 +47,7 @@ class PostsRepository implements PostsInterface {
 
     if ($validator->fails()) {
       $error = $validator->errors()->first();
-      return $this->error($error);
+      return $this->error($error, 422);
     }
 
     $validated = $validator->validated();

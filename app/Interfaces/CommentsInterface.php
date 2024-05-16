@@ -2,6 +2,8 @@
 
 namespace App\Interfaces;
 
+use Illuminate\Http\Request;
+
 interface CommentsInterface
 {
     /**
@@ -11,4 +13,12 @@ interface CommentsInterface
      * @access  private
      */
     public function getUserComments();
+
+    /**
+     * Post User Comment
+     * 
+     * @method  Post api/user/comments/post_id
+     * @access  private
+     */
+    public function createPostComment($id, Request $request);
 }
