@@ -4,10 +4,11 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Comment extends Model
 {
-    use HasFactory;
+    use HasFactory, SoftDeletes;
     /**
      * The attributes that are mass assignable.
      *
@@ -39,5 +40,19 @@ class Comment extends Model
     {
       $comment = $query->where('post_id', $post_id)->get();
       return $comment;
+    }
+
+    public function scopeFindPostComment($query, $id)
+    {
+      $comment = $query->find($id);
+      if (!$comment) {
+        return [];
+      }
+      return $comment;
+    }
+
+    public function scopeUpdatePostComment()
+    {
+      //
     }
 }

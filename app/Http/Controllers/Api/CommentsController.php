@@ -24,4 +24,13 @@ class CommentsController extends Controller {
     public function getPostComment($id, Request $request) {
         return $this->CommentsInterface->getPostComment($id, $request);
     }
+
+    public function updatePostComment($id, Request $request) {
+        return $this->CommentsInterface->updatePostComment($id, $request);
+    }
+   
+    public function deletePostComment($id) {
+        return $this->CommentsInterface->deletePostComment($id);
+    }
+
 }

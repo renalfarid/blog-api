@@ -15,12 +15,28 @@ interface CommentsInterface
     public function getUserComments();
 
     /**
-     * Post User Comment
+     * Create Post Comment
      * 
      * @method  Post api/user/comments/post_id
      * @access  private
      */
     public function createPostComment($id, Request $request);
+
+    /**
+     * Update Post Comment
+     * 
+     * @method  Put api/user/comments/post_id
+     * @access  private
+     */
+    public function updatePostComment($id, Request $request);
+
+    /**
+     * Delete Post Comment
+     * 
+     * @method  Delete api/user/comments/post_id
+     * @access  private
+     */
+    public function deletePostComment($id);
 
     /**
      * Get Post Comment

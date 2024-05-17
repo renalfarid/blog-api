@@ -52,4 +52,34 @@ class CommentsRepository implements CommentsInterface {
     $comment = Comment::getPostComment($id);
     return $this->success("post comment", $comment, 200);
   }
+
+  public function updatePostComment($id, Request $request)
+  {
+    $validator = Validator::make($request->all(), [
+      'content' => 'required',
+    ]);
+    
+    if ($validator->fails()) {
+      $error = $validator->errors()->first();
+      return $this->error($error, 422);
+    }
+    
+    $comment = Comment::findPostComment($id);
+
+    $comment->update($request->all());
+    return $this->success("comment updated", [], 200);
+
+  }
+
+  public function deletePostComment($id)
+  {
+    $post_id = intval($id);
+    $comment = Comment::findPostComment($post_id);
+    if (!$comment) {
+      return $this->error("comment not found", 404);
+    }
+
+    $comment->delete();
+    return $this->success("comment deleted", [], 200);
+  }
 }
