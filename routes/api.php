@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\CommentsController;
+use App\Http\Controllers\Api\LikesController;
 use App\Http\Controllers\Api\PostsController;
 use App\Http\Controllers\Api\UsersController;
 
@@ -33,6 +34,9 @@ Route::group(['prefix' => 'user'], function () {
         Route::get('/comments/{id}', [CommentsController::class, 'getPostComment']);
         Route::put('/comments/{id}', [CommentsController::class, 'updatePostComment']);
         Route::delete('/comments/{id}', [CommentsController::class, 'deletePostComment']);
+
+        Route::post('/like/posts/{id}', [LikesController::class, 'addLikePost']);
+        Route::post('/like/comments/{id}', [LikesController::class, 'addLikeComment']);
     });
 }); 
 
