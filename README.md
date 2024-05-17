@@ -1,11 +1,11 @@
-## Simple Blog Apps
+## Backend Task
 
 Restfull Api that allows users to perform the following
 actions:
 - [x] Register and authenticate (login/logout).
 - [x] Create, update, and delete blog posts.
 - [ ] Read and filter blog posts by status, author, and date.
-- [ ] Create, update, and delete comments on blog posts.
+- [x] Create, update, and delete comments on blog posts.
 - [ ] Like and dislike blog posts and comments.
 
 
