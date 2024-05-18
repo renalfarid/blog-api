@@ -25,10 +25,15 @@ class PostsRepository implements PostsInterface {
   public function getPosts(Request $request)
   {
     $slug = $request->query('slug');
+    $post_id = $request->query('post_id');
     if ($slug) {
       $post = Post::bySlug($slug);
       return $this->success("Post", $post, 200);
-    } else {
+    } else if ($post_id) {
+      $post = Post::byPostId($post_id);
+      return $this->success("Post", $post, 200);
+    }
+    else {
       $posts = Post::allPost();
       return $this->success("All post", $posts, 200);
     }

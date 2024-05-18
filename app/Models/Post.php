@@ -29,30 +29,29 @@ class Post extends Model
 
     public function scopeAllPost() 
     {
-        $posts = Post::where('status', 'published')
-        ->leftJoin('users', 'posts.author_id', '=', 'users.id')
-        ->leftJoin('likes', 'posts.id', '=', 'likes.post_id')
-        ->leftJoin('dislikes', 'posts.id', '=', 'dislikes.post_id')
-        ->leftJoin('comments', 'posts.id', '=', 'comments.post_id')
-        ->select('posts.id', 
-        'posts.title', 
-        'users.name', 
-        'posts.slug', 
-        'posts.content', 
-        'posts.published_date', 
-        'likes.post_id', 
-        'likes.id as like_id', 
-        'dislikes.post_id', 
-        'dislikes.id as dislike_id',
-        DB::raw('(SELECT COUNT(*) FROM comments WHERE comments.post_id = posts.id) as comment_count'))
-        ->orderBy('posts.published_date', 'DESC')
-        ->get();
-        $posts = $posts->map(function ($post) {
-          $post->is_like = !is_null($post->like_id);
-          $post->is_dislike = !is_null($post->dislike_id);
+      $posts = Post::where('status', 'published')
+      ->leftJoin('users', 'posts.author_id', '=', 'users.id')
+      ->leftJoin(DB::raw('(SELECT post_id, COUNT(*) as likes_count FROM likes GROUP BY post_id) likes'), 'posts.id', '=', 'likes.post_id')
+      ->leftJoin(DB::raw('(SELECT post_id, COUNT(*) as dislikes_count FROM dislikes GROUP BY post_id) dislikes'), 'posts.id', '=', 'dislikes.post_id')
+      ->leftJoin(DB::raw('(SELECT post_id, COUNT(*) as comment_count FROM comments GROUP BY post_id) comments'), 'posts.id', '=', 'comments.post_id')
+      ->select('posts.id', 
+          'posts.title', 
+          'users.name', 
+          'posts.slug', 
+          'posts.content', 
+          'posts.published_date', 
+          DB::raw('COALESCE(likes.likes_count, 0) as likes_count'),
+          DB::raw('COALESCE(dislikes.dislikes_count, 0) as dislikes_count'),
+          DB::raw('COALESCE(comments.comment_count, 0) as comment_count'))
+      ->orderBy('posts.published_date', 'DESC')
+      ->get();
+
+      $posts = $posts->map(function ($post) {
+        $post->is_like = $post->likes_count > 0;
+        $post->is_dislike = $post->dislikes_count > 0;
           return $post;
-        });
-       return $posts;
+      });
+      return $posts;
     }
 
     public function scopeBySlug($query, $slug)
@@ -65,22 +64,29 @@ class Post extends Model
       return $post;
     }
 
+    public function scopeByPostId($query, $id)
+    {
+      $post = $query->where('posts.id', $id)
+              ->leftJoin('users', 'posts.author_id', '=', 'users.id')
+              ->select('posts.id as post_id', 'posts.title', 'posts.content', 'posts.published_date',
+              'users.id as user_id', 'users.name')
+              ->first();
+      return $post;
+    }
+
     public function scopeById($query, $userId)
     {
       $posts = DB::table('posts')
            ->select('posts.*', 'likes.id as like_id', 'dislikes.id as dislike_id')
+           ->leftJoin('users', 'users.id', '=', 'posts.author_id')
            ->leftJoin('likes', 'posts.id', '=', 'likes.post_id')
            ->leftJoin('dislikes', 'posts.id', '=', 'dislikes.post_id')
+           ->select('posts.id as post_id', 'users.name', 'posts.title', 'posts.content', 
+           'posts.published_date')
            ->where('posts.author_id', $userId)
            ->orderBy('posts.published_date', 'DESC')
            ->get();
       
-      $posts = $posts->map(function ($post) {
-        $post->is_like = !is_null($post->like_id);
-        $post->is_dislike = !is_null($post->dislike_id);
-        return $post;
-      });
-
       return $posts;
     }
 
