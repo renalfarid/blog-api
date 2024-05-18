@@ -46,6 +46,16 @@ class Post extends Model
        return $posts;
     }
 
+    public function scopeBySlug($query, $slug)
+    {
+      $post = $query->where('slug', $slug)
+              ->leftJoin('users', 'posts.author_id', '=', 'users.id')
+              ->select('posts.id', 'posts.title', 'posts.content', 'posts.published_date',
+              'users.id as user_id', 'users.name')
+              ->first();
+      return $post;
+    }
+
     public function scopeById($query, $userId)
     {
       $posts = DB::table('posts')

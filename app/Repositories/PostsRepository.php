@@ -22,18 +22,30 @@ class PostsRepository implements PostsInterface {
     return $this->success("User post", $posts);
   }
 
-  public function getPosts()
+  public function getPosts(Request $request)
   {
+    $slug = $request->query('slug');
+    if ($slug) {
+      $post = Post::bySlug($slug);
+      return $this->success("Post", $post, 200);
+    } else {
+      $posts = Post::allPost();
+      return $this->success("All post", $posts, 200);
+    }
+    
+  } 
+
+  private function getAllPost() {
     $posts = Post::allPost();
     return $this->success("All post", $posts, 200);
-  } 
+  }
 
   public function getUserPost()
   {
     $isAdmin = Helper::isAdmin();
     
     if ($isAdmin) {
-      return $this->getPosts();
+      return $this->getAllPost();
     } 
 
     $user_id = Helper::getCurrentId();

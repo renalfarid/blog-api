@@ -29,7 +29,6 @@ Route::group(['prefix' => 'user'], function () {
         Route::post('/posts', [PostsController::class, 'createUserPost']);
         Route::delete('/posts/{id}', [PostsController::class, 'deleteUserPost']);
 
-        Route::get('/comments', [CommentsController::class, 'getUserComments']);
         Route::post('/comments/{id}', [CommentsController::class, 'createPostComment']);
         Route::get('/comments/{id}', [CommentsController::class, 'getPostComment']);
         Route::put('/comments/{id}', [CommentsController::class, 'updatePostComment']);
@@ -45,4 +44,5 @@ Route::group(['prefix' => 'user'], function () {
 
 Route::group(['prefix' => 'posts'], function () {
     Route::get('/', [PostsController::class, 'getPosts']);
+    Route::get('/comments/{id}', [CommentsController::class, 'getPostComment']);
 }); 

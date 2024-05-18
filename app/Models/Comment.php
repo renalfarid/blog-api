@@ -38,7 +38,10 @@ class Comment extends Model
 
     public function scopeGetPostComment($query, $post_id)
     {
-      $comment = $query->where('post_id', $post_id)->get();
+      $comment = $query->where('post_id', $post_id)
+                 ->leftJoin('users', 'comments.author_id', '=', 'users.id')
+                 ->select('comments.id', 'comments.post_id','comments.content', 'users.name')
+                 ->get();
       return $comment;
     }
 

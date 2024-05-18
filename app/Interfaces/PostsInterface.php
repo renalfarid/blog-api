@@ -12,7 +12,7 @@ interface PostsInterface
      * @method  Get api/posts
      * @access  public
      */
-    public function getPosts();
+    public function getPosts(Request $request);
 
     /**
      * Get User Post
