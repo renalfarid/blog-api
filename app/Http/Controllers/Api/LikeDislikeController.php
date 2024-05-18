@@ -19,4 +19,12 @@ class LikeDislikeController extends Controller {
     public function addLikeComment($id) {
         return $this->LikeDislikeInterface->addLikeComment($id);
     }
+
+    public function addDislikePost($id) {
+        return $this->LikeDislikeInterface->addDislikePost($id);
+    }
+
+    public function addDislikeComment($id) {
+        return $this->LikeDislikeInterface->addDislikeComment($id);
+    }
 }

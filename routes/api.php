@@ -37,6 +37,9 @@ Route::group(['prefix' => 'user'], function () {
 
         Route::post('/like/posts/{id}', [LikeDislikeController::class, 'addLikePost']);
         Route::post('/like/comments/{id}', [LikeDislikeController::class, 'addLikeComment']);
+
+        Route::post('/dislike/posts/{id}', [LikeDislikeController::class, 'addDislikePost']);
+        Route::post('/dislike/comments/{id}', [LikeDislikeController::class, 'addDislikeComment']);
     });
 }); 
 
