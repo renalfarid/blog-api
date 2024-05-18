@@ -17,6 +17,8 @@ class PostsRepository implements PostsInterface {
   private function getPostById($id)
   {
     $posts = Post::byId($id);
+    // Add the is_like field to each post
+    
     return $this->success("User post", $posts);
   }
 

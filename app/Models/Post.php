@@ -39,8 +39,13 @@ class Post extends Model
     public function scopeById($query, $userId)
     {
       $posts = $query->where('author_id', $userId)
+               ->leftJoin('likes', 'posts.id', '=', 'likes.post_id')
                ->orderBy('published_date', 'DESC')
                 ->get();
+      $posts = $posts->map(function ($post) {
+          $post->is_like = !is_null($post->post_id);
+          return $post;
+      });
       return $posts;
     }
 
