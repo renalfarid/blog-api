@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\DB;
 
 class Like extends Model
 {
@@ -22,9 +23,10 @@ class Like extends Model
 
     public function scopePostAdd($query, $userId, $postId)
     {
-      $like = $query->create(
-        ["user_id" => $userId, "post_id" => $postId]
-      );
+        $like = DB::table('likes')->updateOrInsert(
+            ['user_id' => $userId, 'post_id' => $postId],
+            ['created_at' => now(), 'updated_at' => now()]
+        );
       return $like;
     }
 

@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
 
 
@@ -38,14 +39,18 @@ class Post extends Model
 
     public function scopeById($query, $userId)
     {
-      $posts = $query->where('author_id', $userId)
-               ->leftJoin('likes', 'posts.id', '=', 'likes.post_id')
-               ->orderBy('published_date', 'DESC')
-                ->get();
+      $posts = DB::table('posts')
+           ->select('posts.*', 'likes.id as like_id')
+           ->leftJoin('likes', 'posts.id', '=', 'likes.post_id')
+           ->where('posts.author_id', $userId)
+           ->orderBy('posts.published_date', 'DESC')
+           ->get();
+      
       $posts = $posts->map(function ($post) {
-          $post->is_like = !is_null($post->post_id);
-          return $post;
+        $post->is_like = !is_null($post->like_id);
+        return $post;
       });
+
       return $posts;
     }
 
