@@ -84,6 +84,8 @@ class Post extends Model
            ->select('posts.id as post_id', 'users.name', 'posts.title', 'posts.content', 
            'posts.published_date')
            ->where('posts.author_id', $userId)
+           ->where('status', 'published')
+           ->where('posts.deleted_at', null)
            ->orderBy('posts.published_date', 'DESC')
            ->get();
       
