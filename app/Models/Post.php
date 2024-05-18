@@ -33,9 +33,18 @@ class Post extends Model
         ->leftJoin('users', 'posts.author_id', '=', 'users.id')
         ->leftJoin('likes', 'posts.id', '=', 'likes.post_id')
         ->leftJoin('dislikes', 'posts.id', '=', 'dislikes.post_id')
-        ->select('posts.id', 'posts.title', 'users.name', 'posts.slug', 
-        'posts.content', 'posts.published_date', 'likes.post_id', 'likes.id as like_id', 
-        'dislikes.post_id', 'dislikes.id as dislike_id')
+        ->leftJoin('comments', 'posts.id', '=', 'comments.post_id')
+        ->select('posts.id', 
+        'posts.title', 
+        'users.name', 
+        'posts.slug', 
+        'posts.content', 
+        'posts.published_date', 
+        'likes.post_id', 
+        'likes.id as like_id', 
+        'dislikes.post_id', 
+        'dislikes.id as dislike_id',
+        DB::raw('(SELECT COUNT(*) FROM comments WHERE comments.post_id = posts.id) as comment_count'))
         ->orderBy('posts.published_date', 'DESC')
         ->get();
         $posts = $posts->map(function ($post) {
