@@ -1,13 +1,13 @@
 <?php
 namespace App\Repositories;
 
-use App\Interfaces\LikesInterface;
+use App\Interfaces\LikeDislikeInterface;
 use App\Lib\Helper;
 use App\Models\Like;
 use App\Trait\ResponseApiTrait;
 use Illuminate\Support\Facades\Log;
 
-class LikesRepository implements LikesInterface {
+class LikeDislikeRepository implements LikeDislikeInterface {
   use ResponseApiTrait;
 
    public function addLikePost($id)

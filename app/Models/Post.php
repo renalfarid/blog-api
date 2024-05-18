@@ -31,9 +31,14 @@ class Post extends Model
     {
         $posts = Post::where('status', 'published')
         ->leftJoin('users', 'posts.author_id', '=', 'users.id')
-        ->select('posts.id', 'posts.title', 'users.name', 'posts.slug', 'posts.content', 'posts.published_date')
+        ->leftJoin('likes', 'posts.id', '=', 'likes.post_id')
+        ->select('posts.id', 'posts.title', 'users.name', 'posts.slug', 'posts.content', 'posts.published_date', 'likes.post_id', 'likes.id as like_id')
         ->orderBy('posts.published_date', 'DESC')
         ->get();
+        $posts = $posts->map(function ($post) {
+          $post->is_like = !is_null($post->like_id);
+          return $post;
+        });
        return $posts;
     }
 

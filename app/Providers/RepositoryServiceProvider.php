@@ -29,7 +29,7 @@ class RepositoryServiceProvider extends ServiceProvider
             'Users',
             'Posts',
             'Comments',
-            'Likes'
+            'LikeDislike'
         ];
         if (count($interfaces)) {
             foreach ($interfaces as $key => $interface) {

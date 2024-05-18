@@ -2,7 +2,7 @@
 
 namespace App\Interfaces;
 
-interface LikesInterface
+interface LikeDislikeInterface
 {
     /**
      * Add Like Post
