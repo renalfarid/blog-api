@@ -1,3 +1,11 @@
+## Design Brief 
+Backend Restful API using laravel for simple blog apps. Requirements for the apps is : 
+- Blog posts have a title, content, author, published date, and status.
+- Users have a name, email, password, and role (admin or regular user).
+- Users can write blog posts.
+- Users can leave comments on blog posts.
+- Users can like and dislike blog posts and comments.
+
 ## Backend Task
 
 Restfull Api that allows users to perform the following
