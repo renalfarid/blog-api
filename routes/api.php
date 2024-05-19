@@ -44,5 +44,6 @@ Route::group(['prefix' => 'user'], function () {
 
 Route::group(['prefix' => 'posts'], function () {
     Route::get('/', [PostsController::class, 'getPosts']);
+    Route::get('/filter', [PostsController::class, 'getFilterPosts']);
     Route::get('/comments/{id}', [CommentsController::class, 'getPostComment']);
 }); 

@@ -17,6 +17,10 @@ class PostsController extends Controller {
         return $this->PostsInterface->getPosts($request);
     }
 
+    public function getFilterPosts(Request $request) {
+        return $this->PostsInterface->getFilterPosts($request);
+    }
+
     public function getUserPost() {
         return $this->PostsInterface->getUserPost();
     }

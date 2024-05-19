@@ -15,6 +15,14 @@ interface PostsInterface
     public function getPosts(Request $request);
 
     /**
+     * Get Filter Post
+     * 
+     * @method  Get api/posts/filter?{filter}
+     * @access  public
+     */
+    public function getFilterPosts(Request $request);
+
+    /**
      * Get User Post
      * 
      * @method  Get api/user/post

@@ -45,6 +45,12 @@ class PostsRepository implements PostsInterface {
     return $this->success("All post", $posts, 200);
   }
 
+  private function allPostFilter($status = null, $author_id = null, $published_date = null) 
+  {
+    $posts = Post::allPostFilter($status, $author_id, $published_date);
+    return $this->success("Filtered post", $posts, 200);
+  }
+
   public function getUserPost()
   {
     $isAdmin = Helper::isAdmin();
@@ -55,6 +61,15 @@ class PostsRepository implements PostsInterface {
 
     $user_id = Helper::getCurrentId();
     return $this->getPostById($user_id);
+  }
+
+  public function getFilterPosts(Request $request)
+  {
+    $status = $request->input('status');
+    $author_id = $request->input('author_id');
+    $published_date = $request->input('published_date');
+
+    return $this->allPostFilter($status, $author_id, $published_date);
   }
 
   public function createPost(Request $request)

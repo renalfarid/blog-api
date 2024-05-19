@@ -25,7 +25,49 @@ class Post extends Model
       'author_id',
       'status',
       'published_date',
-   ]; 
+   ];
+   
+   public function scopeAllPostFilter($query, $status = null, $authorId = null, $publishedDate = null)
+{
+    $posts = Post::query()
+        ->leftJoin('users', 'posts.author_id', '=', 'users.id')
+        ->leftJoin(DB::raw('(SELECT post_id, COUNT(*) as likes_count FROM likes GROUP BY post_id) likes'), 'posts.id', '=', 'likes.post_id')
+        ->leftJoin(DB::raw('(SELECT post_id, COUNT(*) as dislikes_count FROM dislikes GROUP BY post_id) dislikes'), 'posts.id', '=', 'dislikes.post_id')
+        ->leftJoin(DB::raw('(SELECT post_id, COUNT(*) as comment_count FROM comments GROUP BY post_id) comments'), 'posts.id', '=', 'comments.post_id')
+        ->select('posts.id', 
+            'posts.title', 
+            'users.name as author_name', 
+            'posts.slug', 
+            'posts.content', 
+            'posts.published_date', 
+            DB::raw('COALESCE(likes.likes_count, 0) as likes_count'),
+            DB::raw('COALESCE(dislikes.dislikes_count, 0) as dislikes_count'),
+            DB::raw('COALESCE(comments.comment_count, 0) as comment_count'))
+        ->orderBy('posts.published_date', 'DESC');
+    
+    if ($status) {
+        $posts->where('posts.status', $status);
+    }
+
+    if ($authorId) {
+        $posts->where('posts.author_id', $authorId);
+    }
+
+    if ($publishedDate) {
+        $posts->whereDate('posts.published_date', $publishedDate);
+    }
+
+    $posts = $posts->get();
+
+    $posts = $posts->map(function ($post) {
+        $post->is_like = $post->likes_count > 0;
+        $post->is_dislike = $post->dislikes_count > 0;
+        return $post;
+    });
+
+    return $posts;
+}
+
 
     public function scopeAllPost() 
     {
