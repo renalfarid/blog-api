@@ -1,4 +1,4 @@
-## Design Brief 
+## Brief 
 Backend Restful API using laravel for simple blog apps. 
 
 This Laravel application implements the repository pattern, which separates the business logic and data access logic layers. The architecture consists of the following components:
