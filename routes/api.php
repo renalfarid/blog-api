@@ -11,6 +11,8 @@ Route::get('/', function (){
    return response()->json(["message" => "welcome API"]);
 });
 
+Route::get('/filter', [PostsController::class, 'getFilter']);
+
 Route::group(['prefix' => 'auth'], function () {
     Route::post('login', [AuthController::class, 'auth'])->name('login');
     Route::post('signup', [AuthController::class, 'signup']);

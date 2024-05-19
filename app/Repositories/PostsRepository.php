@@ -14,6 +14,14 @@ use Illuminate\Support\Str;
 class PostsRepository implements PostsInterface {
   use ResponseApiTrait;
 
+  public function getFilter(Request $request)
+  {
+    $params = $request->input('params');
+    $filter = Post::filter($params);
+
+    return $this->success("filter", $filter);
+  }
+
   private function getPostById($id)
   {
     $posts = Post::byId($id);

@@ -13,6 +13,10 @@ class PostsController extends Controller {
         $this->PostsInterface= $postRepositoryInterface;
     }
 
+    public function getFilter(Request $request) {
+        return $this->PostsInterface->getFilter($request);
+    }
+
     public function getPosts(Request $request) {
         return $this->PostsInterface->getPosts($request);
     }

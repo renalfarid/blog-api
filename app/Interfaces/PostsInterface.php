@@ -7,6 +7,14 @@ use Illuminate\Http\Request;
 interface PostsInterface
 {
      /**
+     * Get Filter
+     * 
+     * @method  Get api/filter
+     * @access  public
+     */
+    public function getFilter(Request $request);
+
+     /**
      * Get All Post
      * 
      * @method  Get api/posts

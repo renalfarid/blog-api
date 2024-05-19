@@ -26,9 +26,34 @@ class Post extends Model
       'status',
       'published_date',
    ];
+
+   public function scopeFilter($query, $params)
+   { 
+      $filter = $query->select($params);
+
+      if ($params === 'author_id') {
+        // If the parameter is author_id, join with the users table and select the author's name
+        $filter = $query->leftJoin('users', 'posts.author_id', '=', 'users.id')
+                        ->select('users.name as author_name')
+                        ->distinct()
+                        ->get();
+      } elseif ($params === 'published_date') {
+          // If the parameter is published_date, select distinct dates
+          $filter = $query->select(DB::raw('DATE(published_date) as published_date'))
+                          ->distinct()
+                          ->get();
+      } else {
+          // For other parameters, just select the distinct values
+          $filter = $query->select($params)
+                          ->distinct()
+                          ->get();
+      }
+
+      return $filter;
+   }
    
    public function scopeAllPostFilter($query, $status = null, $authorId = null, $publishedDate = null)
-{
+   {
     $posts = Post::query()
         ->leftJoin('users', 'posts.author_id', '=', 'users.id')
         ->leftJoin(DB::raw('(SELECT post_id, COUNT(*) as likes_count FROM likes GROUP BY post_id) likes'), 'posts.id', '=', 'likes.post_id')
@@ -66,7 +91,7 @@ class Post extends Model
     });
 
     return $posts;
-}
+  }
 
 
     public function scopeAllPost() 
