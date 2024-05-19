@@ -34,7 +34,7 @@ class Post extends Model
       if ($params === 'author_id') {
         // If the parameter is author_id, join with the users table and select the author's name
         $filter = $query->leftJoin('users', 'posts.author_id', '=', 'users.id')
-                        ->select('users.name as author_name')
+                        ->select('users.id as author_id', 'users.name as author_name')
                         ->distinct()
                         ->get();
       } elseif ($params === 'published_date') {
