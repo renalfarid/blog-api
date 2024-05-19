@@ -58,12 +58,14 @@ class Comment extends Model
                 ->select(
                     'comments.id', 
                     'comments.post_id',
-                    'comments.content', 
+                    'comments.content',
+                    'comments.updated_at', 
                     'users.name',
                     DB::raw('COUNT(likes.id) as likes_count'), // Count likes
                     DB::raw('COUNT(dislikes.id) as dislikes_count') // Count dislikes
                 )
-                ->groupBy('comments.id', 'comments.post_id', 'comments.content', 'users.name') // Group by all selected columns except the counts
+                ->groupBy('comments.id', 'comments.post_id', 'comments.content', 'comments.updated_at', 'users.name') // Group by all selected columns except the counts
+                ->orderBy('comments.updated_at', 'DESC')
                 ->get();
     return $comment;
     }
