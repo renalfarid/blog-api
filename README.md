@@ -1,5 +1,17 @@
 ## Design Brief 
-Backend Restful API using laravel for simple blog apps. Requirements for the apps is : 
+Backend Restful API using laravel for simple blog apps. 
+
+This Laravel application implements the repository pattern, which separates the business logic and data access logic layers. The architecture consists of the following components:
+
+- Interface: Defines the contract that the repository must follow. It specifies the methods that need to be implemented for data operations.
+- Repository: Implements the interface and contains the data access logic. This is where queries to the database are made.
+- Controller: Handles HTTP requests, invokes the necessary services or repositories, and returns the appropriate responses. It acts as the intermediary between the model and the view.
+- Model: Represents the data structure and contains the business logic related to the data. Models interact with the database using Eloquent ORM.
+- Repository Service Provider: Registers the repositories with the Laravel service container, allowing for dependency injection.
+
+This separation of concerns helps in maintaining and testing the application more effectively by decoupling the data access logic from the business logic.
+
+Requirements for the apps is : 
 - Blog posts have a title, content, author, published date, and status.
 - Users have a name, email, password, and role (admin or regular user).
 - Users can write blog posts.
