@@ -44,6 +44,7 @@ class Comment extends Model
                  ->select('comments.id', 'comments.post_id','comments.content', 'users.name')
                  ->get();
       return $comment;*/
+      // change query to return count like and dislike
       $comment = $query->where('comments.post_id', $post_id)
                 ->leftJoin('users', 'comments.author_id', '=', 'users.id')
                 ->leftJoin('likes', function($join) {
