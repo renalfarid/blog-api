@@ -6,7 +6,7 @@ actions:
 - [x] Create, update, and delete blog posts.
 - [x] Read and filter blog posts by status, author, and date.
 - [x] Create, update, and delete comments on blog posts.
-- [ ] Like and dislike blog posts and comments.
+- [x] Like and dislike blog posts and comments.
 
 
 ## How to deploy
