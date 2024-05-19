@@ -14,7 +14,8 @@ class CommentsRepository implements CommentsInterface {
 
   public function getUserComments()
   {
-     $comments = Comment::userComments();
+     $user_id = Helper::getCurrentId();
+     $comments = Comment::userComments($user_id);
      return $this->success("User comments", $comments, 200);
   }
 
